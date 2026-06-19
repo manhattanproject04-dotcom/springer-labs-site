@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Springer Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:   #0033FF;
+      --red:    #E8001E;
+      --yellow: #F5C800;
+      --black:  #0A0A0A;
+      --white:  #F5F4F0;
+      --grey:   #8C8C8C;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      mix-blend-mode: difference;
+    }
+    nav .logo-img {
+      height: 62px;
+      width: auto;
+      display: block;
+      mix-blend-mode: screen;
+      filter: brightness(1.15) contrast(1.1);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 36px;
+    }
+    nav ul li a {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    nav ul li a:hover { opacity: 0.5; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--blue);
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 120px 40px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0;
+    }
+    .hero-meta-left, .hero-meta-right {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245,244,240,0.6);
+      line-height: 1.8;
+    }
+    .hero-center {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 20px;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,244,240,0.55);
+      margin-bottom: 8px;
+    }
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(100px, 22vw, 280px);
+      line-height: 0.88;
+      color: var(--red);
+      letter-spacing: -0.01em;
+      pointer-events: none;
+      user-select: none;
+    }
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid rgba(245,244,240,0.2);
+      padding-top: 20px;
+      margin-top: 24px;
+    }
+    .hero-bottom-left {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245,244,240,0.5);
+    }
+    .hero-bottom-right {
+      display: flex;
+      gap: 32px;
+    }
+    .hero-bottom-right span {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245,244,240,0.5);
+    }
+    .hero-tagline {
+      font-size: clamp(13px, 1.6vw, 17px);
+      font-weight: 300;
+      color: var(--white);
+      max-width: 360px;
+      line-height: 1.55;
+      margin-top: 24px;
+    }
+
+    /* ── ANIMATED WORD ── */
+    .hero-animated-line {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .hero-animated-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,244,240,0.45);
+      white-space: nowrap;
+    }
+    .animated-word-wrap {
+      position: relative;
+      height: 2em;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .animated-word {
+      position: absolute;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(22px, 3vw, 38px);
+      letter-spacing: 0.04em;
+      color: var(--yellow);
+      white-space: nowrap;
+      will-change: transform, opacity;
+    }
+
+    /* ── STATEMENT ── */
+    .statement {
+      background: var(--white);
+      padding: 100px 40px;
+      border-bottom: 1px solid #D8D7D3;
+    }
+    .statement-inner {
+      max-width: 1100px;
+    }
+    .statement-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 32px;
+    }
+    .statement h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 8vw, 110px);
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      color: var(--black);
+      max-width: 900px;
+    }
+    .statement h2 em {
+      font-style: normal;
+      color: var(--red);
+    }
+    .statement-sub {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 48px;
+    }
+    .statement-sub p {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: #444;
+      max-width: 440px;
+    }
+
+    /* ── SERVICES ── */
+    .services {
+      display: grid;
+      grid-template-columns: 1fr;
+      border-top: 1px solid #D8D7D3;
+    }
+    .service-card {
+      padding: 80px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 340px;
+      transition: background 0.3s;
+      cursor: default;
+    }
+    .service-card > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 640px;
+      width: 100%;
+    }
+    .service-card > div * { text-align: center; }
+    .service-divider { width: 100%; }
+    .service-card:last-child { border-right: none; }
+    .service-card:hover { background: var(--black); }
+    .service-card:hover .service-num,
+    .service-card:hover .service-title,
+    .service-card:hover .service-desc { color: var(--white); }
+    .service-card:hover .service-divider { background: rgba(255,255,255,0.2); }
+    .service-num {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--grey);
+      transition: color 0.3s;
+    }
+    .service-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      line-height: 1;
+      color: var(--black);
+      margin: 24px 0 20px;
+      transition: color 0.3s;
+    }
+    .service-divider {
+      height: 1px;
+      background: #D8D7D3;
+      margin-bottom: 20px;
+      transition: background 0.3s;
+    }
+    .service-desc {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: #555;
+      transition: color 0.3s;
+    }
+
+    /* ── COLOR BAND ── */
+    .color-band {
+      background: var(--yellow);
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+      border-top: 1px solid #D8D7D3;
+    }
+    .color-band h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 6vw, 80px);
+      line-height: 0.95;
+      color: var(--black);
+    }
+    .color-band-right {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .color-band-right p {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--black);
+      max-width: 400px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      align-self: flex-start;
+      transition: background 0.25s, color 0.25s;
+    }
+    .btn:hover { background: var(--red); }
+
+    /* ── SECTORS WE SERVE ── */
+    .sectors {
+      background: var(--black);
+      padding: 80px 40px;
+      border-top: 1px solid #222;
+    }
+    .sectors-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 0;
+      border-bottom: 1px solid #2a2a2a;
+      padding-bottom: 24px;
+    }
+    .sectors-header h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      color: var(--white);
+    }
+    .sectors-header span {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+    .sector-row {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: center;
+      gap: 32px;
+      padding: 40px 0;
+      border-bottom: 1px solid #1e1e1e;
+    }
+    .sector-row:last-child { border-bottom: none; }
+    .sector-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      color: var(--grey);
+      letter-spacing: 0.05em;
+    }
+    .sector-body { display: flex; flex-direction: column; gap: 8px; }
+    .sector-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(32px, 5vw, 56px);
+      color: var(--white);
+      line-height: 1;
+    }
+    .sector-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--grey);
+      line-height: 1.6;
+      max-width: 480px;
+    }
+    .sector-tag {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--black);
+      padding: 6px 14px;
+      white-space: nowrap;
+    }
+    .sector-tag.blue  { background: var(--blue); }
+    .sector-tag.red   { background: var(--red); }
+    .sector-tag.yellow { background: var(--yellow); color: var(--black); }
+
+    /* ── CAPABILITIES STRIP ── */
+    .capabilities {
+      background: #111;
+      padding: 56px 40px;
+      border-top: 1px solid #1e1e1e;
+    }
+    .cap-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid #222;
+      padding-bottom: 20px;
+      margin-bottom: 36px;
+    }
+    .cap-header h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      color: var(--white);
+    }
+    .cap-header span {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+    .cap-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .cap-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border: 1px solid #2a2a2a;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .cap-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      flex-shrink: 0;
+    }
+    .cap-dot.r { background: var(--red); }
+    .cap-dot.y { background: var(--yellow); }
+
+    /* ── CTA ── */
+    .cta {
+      background: var(--red);
+      padding: 100px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 32px;
+    }
+    .cta-label {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(245,244,240,0.6);
+    }
+    .cta h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(60px, 10vw, 130px);
+      line-height: 0.9;
+      color: var(--white);
+      max-width: 800px;
+    }
+    .cta p {
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(245,244,240,0.8);
+      max-width: 420px;
+      line-height: 1.65;
+    }
+    .btn-white {
+      display: inline-block;
+      padding: 16px 48px;
+      background: var(--white);
+      color: var(--black);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.25s, color 0.25s;
+    }
+    .btn-white:hover { background: var(--yellow); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #1a1a1a;
+    }
+    footer .logo-img {
+      height: 40px;
+      width: auto;
+      display: block;
+      mix-blend-mode: screen;
+      filter: brightness(1.1);
+    }
+    footer .copy {
+      font-size: 10px;
+      color: var(--grey);
+      letter-spacing: 0.08em;
+    }
+    footer a {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: var(--yellow); }
+
+    /* ── RESPONSIVE ── */
+
+    /* Tablet: 768px and below */
+    @media (max-width: 768px) {
+      /* Nav */
+      nav { padding: 14px 24px; }
+      nav ul { gap: 20px; }
+      nav ul li a { font-size: 10px; }
+      nav .logo-img { height: 44px; }
+
+      /* Hero */
+      .hero { padding: 90px 24px 28px; min-height: auto; }
+      .hero-meta-right { display: none; }
+      .hero h1 { font-size: clamp(72px, 18vw, 140px); }
+      .hero-tagline { font-size: 14px; max-width: 100%; }
+      .hero-animated-line { gap: 10px; }
+      .animated-word { font-size: clamp(20px, 5vw, 32px); }
+      .hero-bottom { flex-direction: column; gap: 8px; align-items: flex-start; }
+      .hero-bottom-right { gap: 16px; }
+
+      /* Statement */
+      .statement { padding: 60px 24px; }
+      .statement h2 { font-size: clamp(40px, 9vw, 72px); }
+      .statement-sub { justify-content: flex-start; margin-top: 32px; }
+      .statement-sub p { font-size: 14px; }
+
+      /* Services */
+      .services { grid-template-columns: 1fr; }
+      .service-card {
+        border-right: none;
+        border-bottom: 1px solid #D8D7D3;
+        min-height: auto;
+        padding: 40px 24px;
+        align-items: flex-start;
+        text-align: left;
+      }
+      .service-card > div { align-items: flex-start; text-align: left; }
+      .service-card > div * { text-align: left; }
+      .service-title { font-size: 34px; }
+
+      /* Color band */
+      .color-band { grid-template-columns: 1fr; padding: 60px 24px; gap: 32px; }
+      .color-band h3 { font-size: clamp(40px, 8vw, 64px); }
+
+      /* Sectors */
+      .sectors { padding: 60px 24px; }
+      .capabilities { padding: 48px 24px; }
+      .sector-row { grid-template-columns: 56px 1fr; gap: 20px; }
+      .sector-tag { display: none; }
+
+      /* CTA */
+      .cta { padding: 80px 24px; gap: 24px; }
+      .cta h2 { font-size: clamp(48px, 12vw, 80px); }
+      .cta p { font-size: 14px; }
+
+      /* Footer */
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 36px 24px; }
+      footer .logo-img { height: 36px; }
+    }
+
+    /* Mobile: 480px and below */
+    @media (max-width: 480px) {
+      /* Nav — hide text links, keep logo */
+      nav ul { display: none; }
+      nav { justify-content: space-between; }
+      nav .logo-img { height: 38px; }
+
+      /* Hero */
+      .hero { padding: 80px 20px 24px; min-height: auto; }
+      .hero-meta-left { font-size: 9px; }
+      .hero h1 { font-size: clamp(60px, 20vw, 100px); line-height: 0.85; }
+      .hero-tagline { font-size: 13px; margin-top: 16px; }
+      .hero-animated-line { margin-top: 20px; flex-wrap: wrap; gap: 6px; }
+      .hero-animated-label { font-size: 10px; }
+      .animated-word { font-size: clamp(18px, 6vw, 28px); }
+      .hero-bottom { padding-top: 16px; margin-top: 16px; }
+      .hero-bottom-right { flex-direction: column; gap: 4px; }
+
+      /* Statement */
+      .statement { padding: 48px 20px; }
+      .statement h2 { font-size: clamp(36px, 11vw, 56px); }
+      .statement-sub p { font-size: 13px; }
+
+      /* Services */
+      .service-card { padding: 32px 20px; }
+      .service-title { font-size: 28px; }
+      .service-desc { font-size: 12px; }
+
+      /* Color band */
+      .color-band { padding: 48px 20px; }
+      .color-band h3 { font-size: clamp(36px, 10vw, 52px); }
+      .color-band-right p { font-size: 13px; }
+      .btn { padding: 12px 28px; font-size: 10px; }
+
+      /* Sectors */
+      .sectors { padding: 48px 20px; }
+      .capabilities { padding: 40px 20px; }
+      .sector-row { grid-template-columns: 44px 1fr; gap: 16px; }
+      .sectors-header h3 { font-size: 36px; }
+      .cap-grid { gap: 8px; }
+      .cap-item { font-size: 11px; padding: 12px 16px; }
+
+      /* CTA */
+      .cta { padding: 64px 20px; }
+      .cta h2 { font-size: clamp(40px, 13vw, 64px); }
+      .btn-white { padding: 14px 36px; font-size: 10px; }
+
+      /* Footer */
+      footer { padding: 28px 20px; gap: 16px; }
+      footer .copy { font-size: 9px; }
+      footer a { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <img src="Springer=Labs-Logo.png" alt="Springer Labs" class="logo-img" />
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#sectors">Sectors</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-meta">
+      <div class="hero-meta-left">
+        New York<br>
+        Est. 2024<br>
+        Strategy — AI — Energy
+      </div>
+      <div class="hero-meta-right">
+        Contact<br>
+        info@springer-labs.com
+      </div>
+    </div>
+    <div class="hero-center">
+      <p class="hero-eyebrow">01 / 01 — Springer Labs</p>
+      <h1>Springer<br>Labs</h1>
+      <p class="hero-tagline">AI-assisted strategy for organizations building at the intersection of mission and market.</p>
+      <div class="hero-animated-line">
+        <span class="hero-animated-label">We are</span>
+        <div class="animated-word-wrap" id="wordWrap">
+          <span class="animated-word" data-word>Mission Driven</span>
+          <span class="animated-word" data-word>Strategic</span>
+          <span class="animated-word" data-word>Innovation</span>
+        </div>
+      </div>
+      <div class="hero-bottom">
+        <div class="hero-bottom-left">
+          Strategy · Clean Energy · Economic Development
+        </div>
+        <div class="hero-bottom-right">
+          <span>Retainer Engagements</span>
+          <span>New York</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATEMENT -->
+  <section class="statement">
+    <div class="statement-inner">
+      <p class="statement-label">What we do</p>
+      <h2>We Build Systems<br>That Generate<br>Wealth <em>&</em> Equity</h2>
+      <div class="statement-sub">
+        <p>Springer Labs is a strategic consultancy using AI infrastructure to help mission-driven organizations and private sector clients move faster, operate smarter, and build lasting economic impact.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="service-card">
+      <div>
+        <p class="service-num">01 — Service</p>
+        <h3 class="service-title">AI Strategy & Implementation</h3>
+        <div class="service-divider"></div>
+        <p class="service-desc">We map your operations, identify where AI creates the highest leverage, and implement the tools — from prompt engineering to agent workflows — that actually stick.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOR BAND -->
+  <section class="color-band">
+    <h3>Retainer<br>Engagements<br>Only.</h3>
+    <div class="color-band-right">
+      <p>We work with a small number of clients at a time — deeply, not broadly. If you're building something that matters and need a strategic partner who stays in the room, let's talk.</p>
+      <a href="mailto:info@springer-labs.com" class="btn">Start a Conversation</a>
+    </div>
+  </section>
+
+  <!-- SECTORS WE SERVE -->
+  <section class="sectors" id="sectors">
+    <div class="sectors-header">
+      <h3>Sectors We Serve</h3>
+      <span>Three verticals</span>
+    </div>
+
+    <div class="sector-row">
+      <span class="sector-num">01</span>
+      <div class="sector-body">
+        <p class="sector-name">Clean Energy &amp; Climate</p>
+        <p class="sector-desc">Solar, BESS, EV infrastructure, community energy programs, and incentive stacking across federal and state programs.</p>
+      </div>
+      <span class="sector-tag blue">Energy</span>
+    </div>
+
+    <div class="sector-row">
+      <span class="sector-num">02</span>
+      <div class="sector-body">
+        <p class="sector-name">Nonprofit &amp; Mission-Driven</p>
+        <p class="sector-desc">Workforce development, employer outreach, grant strategy, and impact measurement for organizations driving systemic change.</p>
+      </div>
+      <span class="sector-tag red">Mission</span>
+    </div>
+
+    <div class="sector-row">
+      <span class="sector-num">03</span>
+      <div class="sector-body">
+        <p class="sector-name">Media Strategy</p>
+        <p class="sector-desc">Paid media planning, audience targeting, and AI-assisted strategy for media buyers, brands, and advertisers.</p>
+      </div>
+      <span class="sector-tag yellow">Media</span>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES STRIP -->
+  <section class="capabilities">
+    <div class="cap-header">
+      <h4>How We Work</h4>
+      <span>AI-native by design</span>
+    </div>
+    <div class="cap-grid">
+      <div class="cap-item"><span class="cap-dot"></span>AI Strategy</div>
+      <div class="cap-item"><span class="cap-dot r"></span>Agent Workflows</div>
+      <div class="cap-item"><span class="cap-dot y"></span>Prompt Engineering</div>
+      <div class="cap-item"><span class="cap-dot"></span>Employer Outreach</div>
+      <div class="cap-item"><span class="cap-dot r"></span>Paid Media Planning</div>
+      <div class="cap-item"><span class="cap-dot y"></span>Incentive Stacking</div>
+      <div class="cap-item"><span class="cap-dot"></span>Grant Strategy</div>
+      <div class="cap-item"><span class="cap-dot r"></span>Impact Measurement</div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <p class="cta-label">Let's work together</p>
+    <h2>Ready to Build Something?</h2>
+    <p>Seven retainer spots. Serious organizations only. If the work matters, reach out.</p>
+    <a href="mailto:info@springer-labs.com" class="btn-white">Get in Touch</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="Springer=Labs-Logo.png" alt="Springer Labs" class="logo-img" />
+    <p class="copy">© 2026 Springer Labs. New York.</p>
+    <a href="mailto:info@springer-labs.com">info@springer-labs.com</a>
+  </footer>
+
+  <script>
+    document.fonts.ready.then(function() {
+      const words = Array.from(document.querySelectorAll('[data-word]'));
+      const wrap  = document.getElementById('wordWrap');
+      let current = 0;
+
+      const ENTER_T = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.4s ease';
+      const EXIT_T  = 'transform 0.4s cubic-bezier(0.55,0,1,0.45), opacity 0.3s ease';
+
+      function setStyle(el, opacity, translateY, transition) {
+        el.style.transition = transition;
+        el.style.opacity    = opacity;
+        el.style.transform  = 'translateY(' + translateY + 'px)';
+      }
+
+      // hide all words off-screen below
+      words.forEach(w => setStyle(w, '0', '60', 'none'));
+
+      // size wrap to widest word now that fonts are loaded
+      let maxW = 0;
+      words.forEach(w => { maxW = Math.max(maxW, w.scrollWidth); });
+      wrap.style.width = (maxW + 8) + 'px';
+
+      function showWord(idx) {
+        const prev = (idx - 1 + words.length) % words.length;
+        setStyle(words[prev], '0', '-60', EXIT_T);
+        setStyle(words[idx], '0', '60', 'none');
+        void words[idx].getBoundingClientRect();
+        setStyle(words[idx], '1', '0', ENTER_T);
+      }
+
+      // show first word immediately
+      void words[0].getBoundingClientRect();
+      setStyle(words[0], '1', '0', ENTER_T);
+
+      setInterval(function() {
+        current = (current + 1) % words.length;
+        showWord(current);
+      }, 2200);
+    });
+  </script>
+</body>
+</html>
