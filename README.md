@@ -18,10 +18,19 @@ portfolio/
 └── Springer=Labs-Logo.png
 ```
 
-## Deploying
+## Workflow
 
+All changes go through a PR before deploying.
+
+**Make a change:**
 ```bash
-npx netlify-cli deploy --prod
+./update.sh "describe what you changed"
+```
+This creates a branch, commits, pushes, and opens a PR automatically.
+
+**After merging the PR, deploy:**
+```bash
+git checkout main && git pull && npx netlify-cli deploy --prod
 ```
 
 ## Sections
