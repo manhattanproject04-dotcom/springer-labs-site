@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The July 2026 Deadline: What's Actually at Stake for Solar Developers — Springer Labs Field Analysis</title>
+  <title>The July 2026 Deadline: What's Actually at Stake for Solar Developers | Springer Labs Field Analysis</title>
   <meta name="description" content="Solar developers aren't losing the ITC because projects fail in the field. They're at risk because of a paperwork sequencing problem most teams aren't tracking at the portfolio level." />
   <meta property="og:title" content="The July 2026 Deadline: What's Actually at Stake for Solar Developers" />
-  <meta property="og:description" content="Independent research on the ITC compliance window closing July 4, 2026 — and why it's an operations problem, not just a legal one." />
+  <meta property="og:description" content="Independent research on the ITC compliance window closing July 4, 2026, and why it's an operations problem, not just a legal one." />
   <meta property="og:url" content="https://springer-labs.com/field-analysis/july-2026-itc-deadline.html" />
   <meta property="og:type" content="article" />
   <script type="application/ld+json">
@@ -192,7 +192,7 @@
       font-size: 13px;
     }
     .article-body ul li::before {
-      content: '—';
+      content: '›';
       position: absolute;
       left: 0;
       color: var(--red);
@@ -367,7 +367,7 @@
       <span class="meta-item">~4 min read</span>
     </div>
     <h1>The July 2026 Deadline: What's Actually at Stake for Solar Developers</h1>
-    <p class="article-disclosure">Field Analysis — independent research, not a client engagement.</p>
+    <p class="article-disclosure">Field Analysis: independent research, not a client engagement.</p>
   </section>
 
   <!-- ARTICLE BODY -->
@@ -375,21 +375,21 @@
 
     <h2>The Problem</h2>
     <p>Solar developers aren't losing the Investment Tax Credit because projects fail in the field. They're at risk of losing it because of a regulatory deadline that has nothing to do with construction quality and everything to do with paperwork sequencing.</p>
-    <p>Under the One Big Beautiful Bill Act, signed in July 2025, the federal government dramatically compressed the runway for solar and wind tax credits that the Inflation Reduction Act had extended through 2032. The new rule: solar and wind projects must begin construction by <strong>July 4, 2026</strong> to remain eligible for the 30% Section 48E Investment Tax Credit — or be fully placed in service by December 31, 2027. Miss both deadlines, and the credit isn't reduced. It's gone. There's no gradual phase-down.</p>
-    <p>The mechanics that determine whether a project "began construction" in the eyes of the IRS are not casual. For most solar projects above 1.5 MW, the old 5% cost safe harbor — long the easy path — no longer applies. Developers must now satisfy the Physical Work Test: documented, continuous physical construction activity, on-site or off-site under binding contract, with inventory purchases no longer counting. On top of that, new Foreign Entity of Concern (FEOC) rules disqualify projects that receive "material assistance" from prohibited suppliers, with a Material Assistance Cost Ratio (MACR) threshold that requires verified, documented supply-chain sourcing — and a clawback period that now extends to ten years if a project is later found non-compliant.</p>
-    <p>This is the pattern that keeps showing up across clean energy work: the hardware is rarely the failure point. The failure point is coordination — tracking which legal test applies to which project, when documentation has to be locked, who owns supplier certification, and what happens if a permitting delay pushes a project past the line.</p>
+    <p>Under the One Big Beautiful Bill Act, signed in July 2025, the federal government dramatically compressed the runway for solar and wind tax credits that the Inflation Reduction Act had extended through 2032. The new rule: solar and wind projects must begin construction by <strong>July 4, 2026</strong> to remain eligible for the 30% Section 48E Investment Tax Credit, or be fully placed in service by December 31, 2027. Miss both deadlines, and the credit isn't reduced. It's gone. There's no gradual phase-down.</p>
+    <p>The mechanics that determine whether a project "began construction" in the eyes of the IRS are not casual. For most solar projects above 1.5 MW, the old 5% cost safe harbor (long the easy path) that no longer applies. Developers must now satisfy the Physical Work Test: documented, continuous physical construction activity, on-site or off-site under binding contract, with inventory purchases no longer counting. On top of that, new Foreign Entity of Concern (FEOC) rules disqualify projects that receive "material assistance" from prohibited suppliers, with a Material Assistance Cost Ratio (MACR) threshold that requires verified, documented supply-chain sourcing, with a clawback period that now extends to ten years if a project is later found non-compliant.</p>
+    <p>This is the pattern that keeps showing up across clean energy work: the hardware is rarely the failure point. The failure point is coordination: tracking which legal test applies to which project, when documentation has to be locked, who owns supplier certification, and what happens if a permitting delay pushes a project past the line.</p>
 
     <h2>Why This Is an Operations Problem, Not Just a Legal One</h2>
-    <p>Every developer racing this deadline has access to the same legal guidance. Law firms and EPCs have published extensively on the Physical Work Test, the MACR threshold, and the safe harbor mechanics. That's not the bottleneck. The bottleneck is operational: most teams are tracking this across spreadsheets, email threads, and individual project managers' memory — for a regulatory requirement with a ten-year audit exposure if it's wrong.</p>
+    <p>Every developer racing this deadline has access to the same legal guidance. Law firms and EPCs have published extensively on the Physical Work Test, the MACR threshold, and the safe harbor mechanics. That's not the bottleneck. The bottleneck is operational: most teams are tracking this across spreadsheets, email threads, and individual project managers' memory, for a regulatory requirement with a ten-year audit exposure if it's wrong.</p>
     <p>That's a workflow and systems problem before it's a tax problem.</p>
 
     <h2>Where Context Engineering Changes the Outcome</h2>
-    <p>This is the kind of situation a context-engineered operational system is built for — not because the system "knows tax law," but because the actual risk is in coordination, documentation, and deadline tracking across a portfolio, not in any single legal question:</p>
+    <p>This is the kind of situation a context-engineered operational system is built for. Not because the system "knows tax law," but because the actual risk is in coordination, documentation, and deadline tracking across a portfolio, not in any single legal question:</p>
     <ol>
-      <li><strong>Portfolio-level deadline tracking.</strong> A live system that flags, per project, which BOC (beginning-of-construction) path applies — Physical Work Test vs. small-project safe harbor — and surfaces which projects are at risk of missing July 4 before it's too late to act.</li>
+      <li><strong>Portfolio-level deadline tracking.</strong> A live system that flags, per project, which BOC (beginning-of-construction) path applies: Physical Work Test vs. small-project safe harbor, and surfaces which projects are at risk of missing July 4 before it's too late to act.</li>
       <li><strong>Supplier documentation chain-of-custody.</strong> Given the ten-year clawback window on FEOC violations, the MACR documentation a developer collects today needs to be retrievable and defensible a decade from now. A structured intake workflow standardizes what's collected at the point of supplier contracting, instead of reconstructing it under audit pressure later.</li>
-      <li><strong>Continuous-construction evidence trail.</strong> The Continuity Safe Harbor requires showing uninterrupted progress, not just a start date. A structured workflow that logs physical work activity as it happens — rather than relying on after-the-fact narrative reconstruction — is the difference between a defensible filing and a vulnerable one.</li>
-      <li><strong>Decision triage, not document generation.</strong> The highest-leverage move isn't a tool that drafts compliance memos. It's a system that tells a development team, every week, which 3–5 projects in their pipeline need an action this week to stay inside the safe harbor — so attention goes where the deadline risk actually is.</li>
+      <li><strong>Continuous-construction evidence trail.</strong> The Continuity Safe Harbor requires showing uninterrupted progress, not just a start date. A structured workflow that logs physical work activity as it happens, rather than relying on after-the-fact narrative reconstruction, making the difference between a defensible filing and a vulnerable one.</li>
+      <li><strong>Decision triage, not document generation.</strong> The highest-leverage move isn't a tool that drafts compliance memos. It's a system that tells a development team, every week, which 3–5 projects in their pipeline need an action this week to stay inside the safe harbor, so attention goes where the deadline risk actually is.</li>
     </ol>
 
     <div class="article-divider"></div>
@@ -416,7 +416,7 @@
   <section class="article-cta">
     <p class="article-cta-label">Let's work together</p>
     <h2>Inside the Window?</h2>
-    <p>If you're tracking this deadline across more than a handful of projects and need a system, not just guidance — reach out.</p>
+    <p>If you're tracking this deadline across more than a handful of projects and need a system, not just guidance. Reach out.</p>
     <a href="mailto:info@springer-labs.com" class="btn-white">Request a Brief</a>
   </section>
 
