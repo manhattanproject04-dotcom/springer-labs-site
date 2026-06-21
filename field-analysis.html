@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Field Analysis — Springer Labs</title>
+  <meta name="description" content="Independent research on real industry conditions — how Springer Labs approaches a problem before you're a client." />
+  <meta property="og:title" content="Field Analysis — Springer Labs" />
+  <meta property="og:description" content="Independent research on clean energy, nonprofit strategy, and media from Springer Labs." />
+  <meta property="og:url" content="https://springer-labs.com/field-analysis.html" />
+  <meta property="og:type" content="website" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Field Analysis — Springer Labs",
+    "url": "https://springer-labs.com/field-analysis.html",
+    "publisher": { "@type": "Organization", "name": "Springer Labs", "url": "https://springer-labs.com" }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:   #0033FF;
+      --red:    #E8001E;
+      --yellow: #F5C800;
+      --black:  #0A0A0A;
+      --white:  #F5F4F0;
+      --grey:   #8C8C8C;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: var(--black);
+    }
+    nav .logo-img {
+      height: 62px;
+      width: auto;
+      display: block;
+      mix-blend-mode: screen;
+      filter: brightness(1.15) contrast(1.1);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 36px;
+    }
+    nav ul li a {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    nav ul li a:hover { opacity: 0.5; }
+    nav ul li a.active { color: var(--yellow); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: var(--black);
+      padding: 160px 40px 80px;
+      border-bottom: 1px solid #1e1e1e;
+    }
+    .page-hero-label {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 24px;
+    }
+    .page-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 12vw, 160px);
+      line-height: 0.9;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+    .page-hero h1 em {
+      font-style: normal;
+      color: var(--red);
+    }
+    .page-hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(245,244,240,0.65);
+      max-width: 520px;
+      line-height: 1.65;
+    }
+
+    /* ── DISCLOSURE ── */
+    .disclosure {
+      background: #111;
+      padding: 24px 40px;
+      border-bottom: 1px solid #1e1e1e;
+    }
+    .disclosure p {
+      font-size: 12px;
+      color: var(--grey);
+      line-height: 1.65;
+      max-width: 800px;
+      letter-spacing: 0.02em;
+    }
+    .disclosure strong { color: rgba(245,244,240,0.5); font-weight: 500; }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      background: var(--white);
+      padding: 32px 40px;
+      border-bottom: 1px solid #D8D7D3;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .filter-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+    .filter-btn {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border: 1px solid #D8D7D3;
+      background: transparent;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .filter-btn:hover { border-color: var(--black); color: var(--black); }
+    .filter-btn.active { background: var(--black); color: var(--white); border-color: var(--black); }
+    .filter-btn.active.blue  { background: var(--blue); border-color: var(--blue); }
+    .filter-btn.active.red   { background: var(--red); border-color: var(--red); }
+    .filter-btn.active.yellow { background: var(--yellow); border-color: var(--yellow); color: var(--black); }
+    .filter-btn.method-btn { border-style: dashed; }
+    .filter-btn.method-btn.active { background: transparent; color: var(--black); border-color: var(--black); border-style: solid; font-weight: 600; }
+
+    /* ── CARD GRID ── */
+    .cards-section {
+      padding: 60px 40px 100px;
+    }
+    .cards-count {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 40px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .analysis-card {
+      background: var(--white);
+      border: 1px solid #D8D7D3;
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.25s;
+    }
+    .analysis-card:hover { background: var(--black); }
+    .analysis-card:hover .card-title,
+    .analysis-card:hover .card-dek,
+    .analysis-card:hover .card-meta { color: var(--white); }
+    .analysis-card:hover .card-meta { color: var(--grey); }
+    .card-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .sector-tag {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      display: inline-block;
+    }
+    .sector-tag.blue   { background: var(--blue);   color: var(--white); }
+    .sector-tag.red    { background: var(--red);    color: var(--white); }
+    .sector-tag.yellow { background: var(--yellow); color: var(--black); }
+    .sector-tag.method {
+      background: transparent;
+      border: 1px solid #999;
+      color: #555;
+    }
+    .analysis-card:hover .sector-tag.method { border-color: #555; color: #aaa; }
+    .card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      line-height: 1.05;
+      color: var(--black);
+      transition: color 0.25s;
+    }
+    .card-dek {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: #555;
+      flex: 1;
+      transition: color 0.25s;
+    }
+    .card-meta {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey);
+      transition: color 0.25s;
+      display: flex;
+      gap: 16px;
+    }
+    .card-arrow {
+      font-size: 18px;
+      color: var(--red);
+      margin-top: auto;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      padding: 80px 0;
+      text-align: center;
+      display: none;
+    }
+    .empty-state p {
+      font-size: 14px;
+      color: var(--grey);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #1a1a1a;
+    }
+    footer .logo-img {
+      height: 40px;
+      width: auto;
+      display: block;
+      mix-blend-mode: screen;
+      filter: brightness(1.1);
+    }
+    footer .copy { font-size: 10px; color: var(--grey); letter-spacing: 0.08em; }
+    footer a {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: var(--yellow); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 24px; }
+      nav ul { gap: 16px; }
+      nav ul li a { font-size: 10px; }
+      nav .logo-img { height: 44px; }
+      .page-hero { padding: 120px 24px 60px; }
+      .disclosure { padding: 20px 24px; }
+      .filter-bar { padding: 24px; gap: 20px; }
+      .cards-section { padding: 40px 24px 80px; }
+      .card-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 36px 24px; }
+    }
+    @media (max-width: 480px) {
+      nav ul { display: none; }
+      .page-hero { padding: 100px 20px 48px; }
+      .filter-bar { padding: 20px; flex-direction: column; align-items: flex-start; gap: 16px; }
+      .cards-section { padding: 32px 20px 64px; }
+      footer { padding: 28px 20px; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/"><img src="Springer=Labs-Logo.png" alt="Springer Labs" class="logo-img" /></a>
+    <ul>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#sectors">Sectors</a></li>
+      <li><a href="/field-analysis.html" class="active">Field Analysis</a></li>
+      <li><a href="/#faq">FAQ</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <p class="page-hero-label">Springer Labs · Independent Research</p>
+    <h1>Field<br><em>Analysis</em></h1>
+    <p class="page-hero-sub">Independent research on real industry conditions — how we think before you're a client.</p>
+  </section>
+
+  <!-- DISCLOSURE -->
+  <div class="disclosure">
+    <p><strong>What this is:</strong> Field Analysis is independent research on real industry conditions, used to illustrate how Springer Labs approaches a problem. Not a description of a client engagement.</p>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="filter-group">
+      <span class="filter-label">Sector</span>
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn blue" data-filter="clean-energy">Clean Energy</button>
+      <button class="filter-btn red" data-filter="mission-driven">Mission-Driven</button>
+      <button class="filter-btn yellow" data-filter="media-strategy">Media Strategy</button>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Method</span>
+      <button class="filter-btn method-btn" data-filter="context-engineering">Context Engineering</button>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <section class="cards-section">
+    <p class="cards-count" id="cardsCount">1 piece</p>
+    <div class="card-grid" id="cardGrid">
+
+      <a class="analysis-card"
+         href="/field-analysis/july-2026-itc-deadline.html"
+         data-sectors="clean-energy"
+         data-methods="context-engineering">
+        <div class="card-tags">
+          <span class="sector-tag blue">Clean Energy</span>
+          <span class="sector-tag method">Context Engineering</span>
+        </div>
+        <h2 class="card-title">The July 2026 Deadline: What's Actually at Stake for Solar Developers</h2>
+        <p class="card-dek">Solar developers aren't losing the ITC because projects fail in the field. They're at risk because of a paperwork sequencing problem — and most teams aren't tracking it at the portfolio level.</p>
+        <div class="card-meta">
+          <span>June 2026</span>
+          <span>~4 min read</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </a>
+
+    </div>
+    <div class="empty-state" id="emptyState">
+      <p>No pieces match the selected filters.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="/"><img src="Springer=Labs-Logo.png" alt="Springer Labs" class="logo-img" /></a>
+    <p class="copy">© 2026 Springer Labs. New York.</p>
+    <a href="mailto:info@springer-labs.com">info@springer-labs.com</a>
+  </footer>
+
+  <script>
+    const cards = Array.from(document.querySelectorAll('.analysis-card'));
+    const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
+    const countEl = document.getElementById('cardsCount');
+    const emptyState = document.getElementById('emptyState');
+
+    let activeSector = 'all';
+    let activeMethod = null;
+
+    function applyFilters() {
+      let visible = 0;
+      cards.forEach(card => {
+        const sectors = card.dataset.sectors.split(' ');
+        const methods = card.dataset.methods.split(' ');
+        const sectorMatch = activeSector === 'all' || sectors.includes(activeSector);
+        const methodMatch = !activeMethod || methods.includes(activeMethod);
+        const show = sectorMatch && methodMatch;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      countEl.textContent = visible + (visible === 1 ? ' piece' : ' pieces');
+      emptyState.style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const f = btn.dataset.filter;
+        if (btn.classList.contains('method-btn')) {
+          if (activeMethod === f) {
+            activeMethod = null;
+            btn.classList.remove('active');
+          } else {
+            activeMethod = f;
+            btn.classList.add('active');
+          }
+        } else {
+          activeSector = f;
+          filterBtns.filter(b => !b.classList.contains('method-btn')).forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
+        applyFilters();
+      });
+    });
+
+    // Handle ?sector= query param on load
+    const params = new URLSearchParams(window.location.search);
+    const sectorParam = params.get('sector');
+    if (sectorParam) {
+      const matchBtn = filterBtns.find(b => b.dataset.filter === sectorParam);
+      if (matchBtn) matchBtn.click();
+    }
+  </script>
+
+</body>
+</html>

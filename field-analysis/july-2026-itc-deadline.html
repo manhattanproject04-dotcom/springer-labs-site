@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The July 2026 Deadline: What's Actually at Stake for Solar Developers — Springer Labs Field Analysis</title>
+  <meta name="description" content="Solar developers aren't losing the ITC because projects fail in the field. They're at risk because of a paperwork sequencing problem most teams aren't tracking at the portfolio level." />
+  <meta property="og:title" content="The July 2026 Deadline: What's Actually at Stake for Solar Developers" />
+  <meta property="og:description" content="Independent research on the ITC compliance window closing July 4, 2026 — and why it's an operations problem, not just a legal one." />
+  <meta property="og:url" content="https://springer-labs.com/field-analysis/july-2026-itc-deadline.html" />
+  <meta property="og:type" content="article" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The July 2026 Deadline: What's Actually at Stake for Solar Developers",
+    "author": { "@type": "Person", "name": "John Springer" },
+    "publisher": { "@type": "Organization", "name": "Springer Labs", "url": "https://springer-labs.com" },
+    "datePublished": "2026-06-21",
+    "url": "https://springer-labs.com/field-analysis/july-2026-itc-deadline.html"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:   #0033FF;
+      --red:    #E8001E;
+      --yellow: #F5C800;
+      --black:  #0A0A0A;
+      --white:  #F5F4F0;
+      --grey:   #8C8C8C;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: var(--black);
+    }
+    nav .logo-img {
+      height: 62px;
+      width: auto;
+      display: block;
+      mix-blend-mode: screen;
+      filter: brightness(1.15) contrast(1.1);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 36px;
+    }
+    nav ul li a {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    nav ul li a:hover { opacity: 0.5; }
+    nav ul li a.active { color: var(--yellow); }
+
+    /* ── ARTICLE HERO ── */
+    .article-hero {
+      background: var(--black);
+      padding: 160px 40px 80px;
+      border-bottom: 1px solid #1e1e1e;
+    }
+    .article-hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .sector-tag {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      display: inline-block;
+    }
+    .sector-tag.blue   { background: var(--blue);   color: var(--white); }
+    .sector-tag.red    { background: var(--red);    color: var(--white); }
+    .sector-tag.yellow { background: var(--yellow); color: var(--black); }
+    .sector-tag.method {
+      background: transparent;
+      border: 1px solid #555;
+      color: #aaa;
+    }
+    .meta-sep {
+      font-size: 10px;
+      color: #444;
+    }
+    .meta-item {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+    .article-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 8vw, 110px);
+      line-height: 0.93;
+      color: var(--white);
+      max-width: 900px;
+      margin-bottom: 32px;
+    }
+    .article-hero h1 em {
+      font-style: normal;
+      color: var(--red);
+    }
+    .article-disclosure {
+      font-size: 11px;
+      color: #555;
+      letter-spacing: 0.04em;
+      font-style: italic;
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-body {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 80px 40px 100px;
+    }
+    .article-body h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1;
+      color: var(--black);
+      margin-top: 64px;
+      margin-bottom: 24px;
+    }
+    .article-body h2:first-child { margin-top: 0; }
+    .article-body p {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .article-body p:last-child { margin-bottom: 0; }
+    .article-body strong {
+      font-weight: 600;
+      color: var(--black);
+    }
+    .article-body ol,
+    .article-body ul {
+      margin: 24px 0 24px 0;
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .article-body ol li,
+    .article-body ul li {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: #333;
+      padding-left: 28px;
+      position: relative;
+    }
+    .article-body ol { counter-reset: ol-counter; }
+    .article-body ol li { counter-increment: ol-counter; }
+    .article-body ol li::before {
+      content: counter(ol-counter) ".";
+      position: absolute;
+      left: 0;
+      font-weight: 600;
+      color: var(--red);
+      font-size: 13px;
+    }
+    .article-body ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--red);
+      font-weight: 600;
+    }
+    .article-body em {
+      font-style: italic;
+      color: #555;
+    }
+
+    /* ── MODELED NOTE ── */
+    .modeled-note {
+      background: #111;
+      border-left: 3px solid var(--yellow);
+      padding: 28px 32px;
+      margin: 40px 0;
+    }
+    .modeled-note p {
+      font-size: 14px;
+      color: rgba(245,244,240,0.7);
+      line-height: 1.75;
+      margin-bottom: 0;
+    }
+    .modeled-note strong { color: var(--yellow); }
+
+    /* ── DIVIDER ── */
+    .article-divider {
+      height: 1px;
+      background: #D8D7D3;
+      margin: 60px 0;
+    }
+
+    /* ── CTA BLOCK ── */
+    .article-cta {
+      background: var(--red);
+      padding: 80px 40px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+    }
+    .article-cta-label {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(245,244,240,0.6);
+    }
+    .article-cta h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 8vw, 96px);
+      line-height: 0.93;
+      color: var(--white);
+      max-width: 700px;
+    }
+    .article-cta p {
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(245,244,240,0.8);
+      max-width: 420px;
+      line-height: 1.65;
+    }
+    .btn-white {
+      display: inline-block;
+      padding: 16px 48px;
+      background: var(--white);
+      color: var(--black);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.25s, color 0.25s;
+    }
+    .btn-white:hover { background: var(--yellow); }
+
+    /* ── BACK LINK ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grey);
+      text-decoration: none;
+      padding: 24px 40px;
+      border-bottom: 1px solid #D8D7D3;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--black); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #1a1a1a;
+    }
+    footer .logo-img {
+      height: 40px;
+      width: auto;
+      display: block;
+      mix-blend-mode: screen;
+      filter: brightness(1.1);
+    }
+    footer .copy { font-size: 10px; color: var(--grey); letter-spacing: 0.08em; }
+    footer a {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    footer a:hover { color: var(--yellow); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 24px; }
+      nav ul { gap: 16px; }
+      nav ul li a { font-size: 10px; }
+      nav .logo-img { height: 44px; }
+      .article-hero { padding: 120px 24px 60px; }
+      .article-body { padding: 60px 24px 80px; }
+      .back-link { padding: 20px 24px; }
+      .article-cta { padding: 60px 24px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 36px 24px; }
+    }
+    @media (max-width: 480px) {
+      nav ul { display: none; }
+      .article-hero { padding: 100px 20px 48px; }
+      .article-hero h1 { font-size: clamp(44px, 12vw, 72px); }
+      .article-body { padding: 48px 20px 64px; }
+      .article-body h2 { font-size: clamp(30px, 8vw, 44px); }
+      .modeled-note { padding: 20px 24px; }
+      .back-link { padding: 16px 20px; }
+      .article-cta { padding: 48px 20px; }
+      footer { padding: 28px 20px; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/"><img src="../Springer=Labs-Logo.png" alt="Springer Labs" class="logo-img" /></a>
+    <ul>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/#sectors">Sectors</a></li>
+      <li><a href="/field-analysis.html" class="active">Field Analysis</a></li>
+      <li><a href="/#faq">FAQ</a></li>
+      <li><a href="/#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- BACK LINK -->
+  <a href="/field-analysis.html" class="back-link">← Field Analysis</a>
+
+  <!-- ARTICLE HERO -->
+  <section class="article-hero">
+    <div class="article-hero-meta">
+      <span class="sector-tag blue">Clean Energy</span>
+      <span class="sector-tag method">Context Engineering</span>
+      <span class="meta-sep">·</span>
+      <span class="meta-item">June 2026</span>
+      <span class="meta-sep">·</span>
+      <span class="meta-item">~4 min read</span>
+    </div>
+    <h1>The July 2026 Deadline: What's Actually at Stake for Solar Developers</h1>
+    <p class="article-disclosure">Field Analysis — independent research, not a client engagement.</p>
+  </section>
+
+  <!-- ARTICLE BODY -->
+  <article class="article-body">
+
+    <h2>The Problem</h2>
+    <p>Solar developers aren't losing the Investment Tax Credit because projects fail in the field. They're at risk of losing it because of a regulatory deadline that has nothing to do with construction quality and everything to do with paperwork sequencing.</p>
+    <p>Under the One Big Beautiful Bill Act, signed in July 2025, the federal government dramatically compressed the runway for solar and wind tax credits that the Inflation Reduction Act had extended through 2032. The new rule: solar and wind projects must begin construction by <strong>July 4, 2026</strong> to remain eligible for the 30% Section 48E Investment Tax Credit — or be fully placed in service by December 31, 2027. Miss both deadlines, and the credit isn't reduced. It's gone. There's no gradual phase-down.</p>
+    <p>The mechanics that determine whether a project "began construction" in the eyes of the IRS are not casual. For most solar projects above 1.5 MW, the old 5% cost safe harbor — long the easy path — no longer applies. Developers must now satisfy the Physical Work Test: documented, continuous physical construction activity, on-site or off-site under binding contract, with inventory purchases no longer counting. On top of that, new Foreign Entity of Concern (FEOC) rules disqualify projects that receive "material assistance" from prohibited suppliers, with a Material Assistance Cost Ratio (MACR) threshold that requires verified, documented supply-chain sourcing — and a clawback period that now extends to ten years if a project is later found non-compliant.</p>
+    <p>This is the pattern that keeps showing up across clean energy work: the hardware is rarely the failure point. The failure point is coordination — tracking which legal test applies to which project, when documentation has to be locked, who owns supplier certification, and what happens if a permitting delay pushes a project past the line.</p>
+
+    <h2>Why This Is an Operations Problem, Not Just a Legal One</h2>
+    <p>Every developer racing this deadline has access to the same legal guidance. Law firms and EPCs have published extensively on the Physical Work Test, the MACR threshold, and the safe harbor mechanics. That's not the bottleneck. The bottleneck is operational: most teams are tracking this across spreadsheets, email threads, and individual project managers' memory — for a regulatory requirement with a ten-year audit exposure if it's wrong.</p>
+    <p>That's a workflow and systems problem before it's a tax problem.</p>
+
+    <h2>Where Context Engineering Changes the Outcome</h2>
+    <p>This is the kind of situation a context-engineered operational system is built for — not because the system "knows tax law," but because the actual risk is in coordination, documentation, and deadline tracking across a portfolio, not in any single legal question:</p>
+    <ol>
+      <li><strong>Portfolio-level deadline tracking.</strong> A live system that flags, per project, which BOC (beginning-of-construction) path applies — Physical Work Test vs. small-project safe harbor — and surfaces which projects are at risk of missing July 4 before it's too late to act.</li>
+      <li><strong>Supplier documentation chain-of-custody.</strong> Given the ten-year clawback window on FEOC violations, the MACR documentation a developer collects today needs to be retrievable and defensible a decade from now. A structured intake workflow standardizes what's collected at the point of supplier contracting, instead of reconstructing it under audit pressure later.</li>
+      <li><strong>Continuous-construction evidence trail.</strong> The Continuity Safe Harbor requires showing uninterrupted progress, not just a start date. A structured workflow that logs physical work activity as it happens — rather than relying on after-the-fact narrative reconstruction — is the difference between a defensible filing and a vulnerable one.</li>
+      <li><strong>Decision triage, not document generation.</strong> The highest-leverage move isn't a tool that drafts compliance memos. It's a system that tells a development team, every week, which 3–5 projects in their pipeline need an action this week to stay inside the safe harbor — so attention goes where the deadline risk actually is.</li>
+    </ol>
+
+    <div class="article-divider"></div>
+
+    <h2>Illustrative Outcome (Modeled, Not Actual)</h2>
+    <div class="modeled-note">
+      <p><strong>Note:</strong> This is a projected outcome based on the mechanics above, not a reported result from any real engagement.</p>
+    </div>
+    <p>For a mid-size developer with 15–20 projects in active development, a portfolio-level tracking and documentation system of this kind would typically be expected to:</p>
+    <ul>
+      <li>Surface at-risk projects (those without a clear BOC path locked) weeks before the deadline, not days</li>
+      <li>Reduce the audit-readiness gap on MACR/FEOC documentation from scattered across vendors to centralized and timestamped</li>
+      <li>Convert a once-a-decade compliance event into a standing operational capability the team owns going forward</li>
+    </ul>
+
+    <div class="article-divider"></div>
+
+    <h2>Who This Is For</h2>
+    <p>Solar and wind developers and EPCs with active multi-project pipelines who are inside the July 2026 compliance window and do not currently have a centralized system tracking BOC status, supplier documentation, and continuity evidence across projects.</p>
+
+  </article>
+
+  <!-- CTA -->
+  <section class="article-cta">
+    <p class="article-cta-label">Let's work together</p>
+    <h2>Inside the Window?</h2>
+    <p>If you're tracking this deadline across more than a handful of projects and need a system, not just guidance — reach out.</p>
+    <a href="mailto:info@springer-labs.com" class="btn-white">Request a Brief</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="/"><img src="../Springer=Labs-Logo.png" alt="Springer Labs" class="logo-img" /></a>
+    <p class="copy">© 2026 Springer Labs. New York.</p>
+    <a href="mailto:info@springer-labs.com">info@springer-labs.com</a>
+  </footer>
+
+</body>
+</html>
