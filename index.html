@@ -122,7 +122,7 @@
       font-size: clamp(100px, 22vw, 280px);
       line-height: 0.88;
       color: var(--red);
-      letter-spacing: -0.01em;
+      letter-spacing: 0.04em;
       pointer-events: none;
       user-select: none;
     }
@@ -159,37 +159,17 @@
       margin-top: 24px;
     }
 
-    /* ── ANIMATED WORD ── */
-    .hero-animated-line {
-      display: flex;
-      align-items: center;
-      gap: 16px;
+    /* ── PARTICLE CANVAS ── */
+    .particle-canvas-wrap {
       margin-top: 28px;
+      width: 100%;
+      max-width: 700px;
     }
-    .hero-animated-label {
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(245,244,240,0.45);
-      white-space: nowrap;
-    }
-    .animated-word-wrap {
-      position: relative;
-      height: 2em;
-      overflow: visible;
-      display: flex;
-      align-items: center;
-      min-width: 280px;
-      flex: 1;
-    }
-    .animated-word {
-      position: absolute;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(22px, 3vw, 38px);
-      letter-spacing: 0.04em;
-      color: var(--yellow);
-      white-space: nowrap;
-      will-change: transform, opacity;
+    #particleCanvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
     }
 
     /* ── FOUNDER ── */
@@ -770,8 +750,7 @@
       .hero-meta-right { display: none; }
       .hero h1 { font-size: clamp(72px, 18vw, 140px); }
       .hero-tagline { font-size: 14px; max-width: 100%; }
-      .hero-animated-line { gap: 10px; }
-      .animated-word { font-size: clamp(20px, 5vw, 32px); }
+      .particle-canvas-wrap { max-width: 100%; }
       .hero-bottom { flex-direction: column; gap: 8px; align-items: flex-start; }
       .hero-bottom-right { gap: 16px; }
 
@@ -827,9 +806,7 @@
       .hero-meta-left { font-size: 9px; }
       .hero h1 { font-size: clamp(60px, 20vw, 100px); line-height: 0.85; }
       .hero-tagline { font-size: 13px; margin-top: 16px; }
-      .hero-animated-line { margin-top: 20px; flex-wrap: wrap; gap: 6px; }
-      .hero-animated-label { font-size: 10px; }
-      .animated-word { font-size: clamp(18px, 6vw, 28px); }
+      .particle-canvas-wrap { margin-top: 20px; }
       .hero-bottom { padding-top: 16px; margin-top: 16px; }
       .hero-bottom-right { flex-direction: column; gap: 4px; }
 
@@ -901,13 +878,8 @@
       <p class="hero-eyebrow">01 / 01 · Springer Labs</p>
       <h1>Springer<br>Labs</h1>
       <p class="hero-tagline">AI-assisted strategy for organizations building at the intersection of mission and market.</p>
-      <div class="hero-animated-line">
-        <span class="hero-animated-label">We are</span>
-        <div class="animated-word-wrap" id="wordWrap">
-          <span class="animated-word" data-word>Mission Driven</span>
-          <span class="animated-word" data-word>Strategic</span>
-          <span class="animated-word" data-word>Innovation</span>
-        </div>
+      <div class="particle-canvas-wrap">
+        <canvas id="particleCanvas"></canvas>
       </div>
       <div class="hero-bottom">
         <div class="hero-bottom-left">
@@ -1115,42 +1087,149 @@
   </script>
 
   <script>
-    document.fonts.ready.then(function() {
-      const words = Array.from(document.querySelectorAll('[data-word]'));
-      const wrap  = document.getElementById('wordWrap');
-      let current = 0;
+    (function() {
+      const canvas = document.getElementById('particleCanvas');
+      const W = 700, H = 160;
+      canvas.width  = W;
+      canvas.height = H;
+      const ctx = canvas.getContext('2d');
 
-      const ENTER_T = 'transform 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.4s ease';
-      const EXIT_T  = 'transform 0.4s cubic-bezier(0.55,0,1,0.45), opacity 0.3s ease';
+      // Site red colour  (#C8281E or similar — use CSS var fallback)
+      const RED = { r: 200, g: 40, b: 30 };
 
-      function setStyle(el, opacity, translateY, transition) {
-        el.style.transition = transition;
-        el.style.opacity    = opacity;
-        el.style.transform  = 'translateY(' + translateY + 'px)';
+      class Particle {
+        constructor() {
+          this.pos = { x: Math.random() * W, y: Math.random() * H };
+          this.vel = { x: 0, y: 0 };
+          this.acc = { x: 0, y: 0 };
+          this.target = { x: 0, y: 0 };
+          this.maxSpeed = Math.random() * 5 + 3;
+          this.maxForce = this.maxSpeed * 0.05;
+          this.closeEnough = 80;
+          this.startColor  = { r: 0, g: 0, b: 0 };
+          this.targetColor = { ...RED };
+          this.colorWeight = 0;
+          this.colorRate   = Math.random() * 0.025 + 0.004;
+          this.isKilled = false;
+        }
+        move() {
+          const dx = this.target.x - this.pos.x;
+          const dy = this.target.y - this.pos.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          const prox = dist < this.closeEnough ? dist / this.closeEnough : 1;
+          const mag  = dist || 1;
+          const tx = (dx / mag) * this.maxSpeed * prox;
+          const ty = (dy / mag) * this.maxSpeed * prox;
+          const sx = tx - this.vel.x;
+          const sy = ty - this.vel.y;
+          const sm = Math.sqrt(sx*sx + sy*sy) || 1;
+          this.acc.x += (sx / sm) * this.maxForce;
+          this.acc.y += (sy / sm) * this.maxForce;
+          this.vel.x += this.acc.x;
+          this.vel.y += this.acc.y;
+          this.pos.x += this.vel.x;
+          this.pos.y += this.vel.y;
+          this.acc.x = 0; this.acc.y = 0;
+        }
+        draw() {
+          this.colorWeight = Math.min(this.colorWeight + this.colorRate, 1);
+          const r = Math.round(this.startColor.r + (this.targetColor.r - this.startColor.r) * this.colorWeight);
+          const g = Math.round(this.startColor.g + (this.targetColor.g - this.startColor.g) * this.colorWeight);
+          const b = Math.round(this.startColor.b + (this.targetColor.b - this.startColor.b) * this.colorWeight);
+          ctx.fillStyle = `rgb(${r},${g},${b})`;
+          ctx.fillRect(this.pos.x, this.pos.y, 2, 2);
+        }
+        kill() {
+          if (!this.isKilled) {
+            this.startColor = {
+              r: Math.round(this.startColor.r + (this.targetColor.r - this.startColor.r) * this.colorWeight),
+              g: Math.round(this.startColor.g + (this.targetColor.g - this.startColor.g) * this.colorWeight),
+              b: Math.round(this.startColor.b + (this.targetColor.b - this.startColor.b) * this.colorWeight),
+            };
+            this.targetColor = { r: 0, g: 0, b: 0 };
+            this.colorWeight = 0;
+            // send off-screen
+            const angle = Math.random() * Math.PI * 2;
+            const dist  = (W + H);
+            this.target.x = W / 2 + Math.cos(angle) * dist;
+            this.target.y = H / 2 + Math.sin(angle) * dist;
+            this.isKilled = true;
+          }
+        }
       }
 
-      // hide all words off-screen below
-      words.forEach(w => setStyle(w, '0', '60', 'none'));
+      const particles = [];
+      const PIXEL_STEP = 4;
 
-      // let the wrap size naturally — no fixed width needed
+      function buildWord(text) {
+        const off = document.createElement('canvas');
+        off.width  = W; off.height = H;
+        const octx = off.getContext('2d');
 
-      function showWord(idx) {
-        const prev = (idx - 1 + words.length) % words.length;
-        setStyle(words[prev], '0', '-60', EXIT_T);
-        setStyle(words[idx], '0', '60', 'none');
-        void words[idx].getBoundingClientRect();
-        setStyle(words[idx], '1', '0', ENTER_T);
+        // Try to match site font; fall back gracefully
+        const fontSize = 96;
+        octx.font = `900 ${fontSize}px 'Bebas Neue', Arial, sans-serif`;
+        octx.textAlign    = 'center';
+        octx.textBaseline = 'middle';
+        octx.fillStyle    = 'white';
+        octx.fillText(text, W / 2, H / 2);
+
+        const data    = octx.getImageData(0, 0, W, H).data;
+        const coords  = [];
+        for (let i = 0; i < data.length; i += PIXEL_STEP * 4) {
+          if (data[i + 3] > 0) {
+            coords.push({ x: (i / 4) % W, y: Math.floor((i / 4) / W) });
+          }
+        }
+        // shuffle for fluid scatter
+        for (let i = coords.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [coords[i], coords[j]] = [coords[j], coords[i]];
+        }
+
+        let idx = 0;
+        for (const { x, y } of coords) {
+          let p;
+          if (idx < particles.length) {
+            p = particles[idx];
+            p.isKilled = false;
+          } else {
+            p = new Particle();
+            particles.push(p);
+          }
+          // transition color from current blended value
+          const blendR = Math.round(p.startColor.r + (p.targetColor.r - p.startColor.r) * p.colorWeight);
+          const blendG = Math.round(p.startColor.g + (p.targetColor.g - p.startColor.g) * p.colorWeight);
+          const blendB = Math.round(p.startColor.b + (p.targetColor.b - p.startColor.b) * p.colorWeight);
+          p.startColor  = { r: blendR, g: blendG, b: blendB };
+          p.targetColor = { ...RED };
+          p.colorWeight = 0;
+          p.target.x = x;
+          p.target.y = y;
+          idx++;
+        }
+        for (let i = idx; i < particles.length; i++) particles[i].kill();
       }
 
-      // show first word immediately
-      void words[0].getBoundingClientRect();
-      setStyle(words[0], '1', '0', ENTER_T);
+      function animate() {
+        ctx.fillStyle = 'rgba(0,0,0,0.18)';
+        ctx.fillRect(0, 0, W, H);
+        for (let i = particles.length - 1; i >= 0; i--) {
+          const p = particles[i];
+          p.move(); p.draw();
+          if (p.isKilled && (p.pos.x < -50 || p.pos.x > W + 50 || p.pos.y < -50 || p.pos.y > H + 50)) {
+            particles.splice(i, 1);
+          }
+        }
+        requestAnimationFrame(animate);
+      }
 
-      setInterval(function() {
-        current = (current + 1) % words.length;
-        showWord(current);
-      }, 2200);
-    });
+      // Wait for Bebas Neue to load before rendering
+      document.fonts.ready.then(function() {
+        buildWord('SPRINGER LABS');
+        animate();
+      });
+    })();
   </script>
 </body>
 </html>
